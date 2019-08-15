@@ -1,0 +1,31 @@
+body{
+    background-color: #2BA84A;
+}
+.ventana{
+    display: flex;
+    position: absolute;
+    width: 94%;
+    height: 90%;
+    background-color: white;
+    border-radius: 0.2em;
+    left: 3%;
+    bottom: 2%;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 0.5em;
+    flex-wrap: wrap;
+}
+.icono{
+    width: 5em;
+}
+.entidad{
+    margin: 1em 0em 1em 1em;
+    border-radius: 0.2em;
+    padding: 0.2em;
+}
+.entidad:hover{
+    background-color: #D3D3D3;
+}
+.leyenda{
+    text-align: center;
+}
