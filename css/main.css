@@ -8,19 +8,17 @@ body{
 }
 .botones{
     position: relative;
-    margin: auto;
-    width: 50%;
-    top: 30%;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    top: 30%;
+    justify-content: center;
 }
 .boton{
+    text-align: center;
     padding: 0.5em;
     border-radius: 0.2em;
     text-decoration: none;
     color: white;
-    padding-left: 2em;
-    padding-right: 2em;
     -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.27);
     -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.27);
     box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.27);
@@ -28,6 +26,7 @@ body{
 #pagina{
     font-size: 3.5em;
     background-color: #2BA84A;
+    margin-right: 5%;
 }
 #archivo{
     font-size: 3.5em;

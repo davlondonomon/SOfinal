@@ -6,8 +6,8 @@
     </head>
     <body>
         <div class="botones">
-            <a class="boton" id="pagina" href="pagina.html">pagina</a>
-            <a class="boton" id="archivo" href="archivo.html">archivo</a>
+            <a class="boton" id="pagina" href="pagina.php">Pagina</a>
+            <a class="boton" id="archivo" href="archivo.php">Archivo</a>
         </div>
     </body>
 
