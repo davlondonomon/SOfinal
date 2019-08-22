@@ -45,8 +45,8 @@ if ($funcion == "abrirCarpeta"){
     system("ls -lh | grep {$argumento} | awk '{print $5}'");
 }else if ($funcion == "user"){
     $pwd = $_REQUEST["pwd"];
-    $comando = "sudo shown {$argumento} ${pwd}";
+    $comando = "sudo chown {$argumento} ${pwd}";
     echo $comando;
-    exec("sudo shown {$argumento} ${pwd}");
+    exec("sudo chown {$argumento} ${pwd}");
 }
 ?>
