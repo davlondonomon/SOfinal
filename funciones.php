@@ -47,6 +47,6 @@ if ($funcion == "abrirCarpeta"){
     $pwd = $_REQUEST["pwd"];
     $comando = "sudo chown {$argumento} ${pwd}";
     echo $comando;
-    exec("sudo chown {$argumento} ${pwd}");
+    shell_exec("sudo chown {$argumento} ${pwd}");
 }
 ?>
