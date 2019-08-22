@@ -164,78 +164,118 @@ function mover(){
         ejecutarComando(comando)
     }
 }
+function info(id){
+    var funcion = "info"
+    var argumento = seleccionActual
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `funciones.php?funcion=${funcion}&argumento=${argumento}&pwd=${pwd}`, true);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText
+            respuesta = respuesta.split("\n")
+            console.log(respuesta[0])
+            console.log(respuesta[1])
+            document.getElementById("nombre").innerHTML=`Nombre:    ${seleccionActual}`
+            document.getElementById("duenno").innerHTML=`Dueño:     ${respuesta[0]}`
+            document.getElementById("espacio").innerHTML=`Tamaño (Bytes):   ${respuesta[1]}`
+
+            toggleMostrar(id)
+        }
+
+    };
+}
 function mostrar(id){
     if (seleccionActual == ""){
         alert("Seleccione un archivo o carpeta")
     }else{
-        var funcion = "permisos"
-        var path = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+seleccionActual
+        if(id == "info-pop"){
+            info(id)
+        }else{
+            var funcion = "permisos"
+            var path = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+seleccionActual
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", `funciones.php?funcion=${funcion}&pwd=${path}`, true);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var respuesta = this.responseText
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", `funciones.php?funcion=${funcion}&pwd=${path}`, true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var respuesta = this.responseText
 
-                var permisos = respuesta.toString().slice(-3);
+                    var permisos = respuesta.toString().slice(-3);
 
-                for(var i=0; i<3;i++){
-                    var binario=(parseInt(permisos[i])).toString(2)
-                    if(i==0){
-                        if(binario[0]=="1"){
-                            document.getElementById("u-r").checked=true
-                        }else{
-                            document.getElementById("u-r").checked=false
+                    for(var i=0; i<3;i++){
+                        var binario=(parseInt(permisos[i])).toString(2)
+                        if(i==0){
+                            if(binario[0]=="1"){
+                                document.getElementById("u-r").checked=true
+                            }else{
+                                document.getElementById("u-r").checked=false
+                            }
+                            if(binario[1]=="1"){
+                                document.getElementById("u-w").checked=true
+                            }else{
+                                document.getElementById("u-w").checked=false
+                            }
+                            if(binario[2]=="1"){
+                                document.getElementById("u-x").checked=true
+                            }else{
+                                document.getElementById("u-x").checked=false
+                            }
                         }
-                        if(binario[1]=="1"){
-                            document.getElementById("u-w").checked=true
-                        }else{
-                            document.getElementById("u-w").checked=false
+                        if(i==1){
+                            if(binario[0]=="1"){
+                                document.getElementById("g-r").checked=true
+                            }else{
+                                document.getElementById("g-r").checked=false
+                            }
+                            if(binario[1]=="1"){
+                                document.getElementById("g-w").checked=true
+                            }else{
+                                document.getElementById("g-w").checked=false
+                            }
+                            if(binario[2]=="1"){
+                                document.getElementById("g-x").checked=true
+                            }else{
+                                document.getElementById("g-x").checked=false
+                            }
                         }
-                        if(binario[2]=="1"){
-                            document.getElementById("u-x").checked=true
-                        }else{
-                            document.getElementById("u-x").checked=false
+                        if(i==2){
+                            if(binario[0]=="1"){
+                                document.getElementById("o-r").checked=true
+                            }else{
+                                document.getElementById("o-r").checked=false
+                            }
+                            if(binario[1]=="1"){
+                                document.getElementById("o-w").checked=true
+                            }else{
+                                document.getElementById("o-w").checked=false
+                            }
+                            if(binario[2]=="1"){
+                                document.getElementById("o-x").checked=true
+                            }else{
+                                document.getElementById("o-x").checked=false
+                            }
                         }
                     }
-                    if(i==1){
-                        if(binario[0]=="1"){
-                            document.getElementById("g-r").checked=true
-                        }else{
-                            document.getElementById("g-r").checked=false
-                        }
-                        if(binario[1]=="1"){
-                            document.getElementById("g-w").checked=true
-                        }else{
-                            document.getElementById("g-w").checked=false
-                        }
-                        if(binario[2]=="1"){
-                            document.getElementById("g-x").checked=true
-                        }else{
-                            document.getElementById("g-x").checked=false
-                        }
-                    }
-                    if(i==2){
-                        if(binario[0]=="1"){
-                            document.getElementById("o-r").checked=true
-                        }else{
-                            document.getElementById("o-r").checked=false
-                        }
-                        if(binario[1]=="1"){
-                            document.getElementById("o-w").checked=true
-                        }else{
-                            document.getElementById("o-w").checked=false
-                        }
-                        if(binario[2]=="1"){
-                            document.getElementById("o-x").checked=true
-                        }else{
-                            document.getElementById("o-x").checked=false
-                        }
-                    }
+                    toggleMostrar(id)
                 }
-                toggleMostrar(id)
             }
+        }}
+}
+function nuevoDuenno(id){
+    var ruta = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+seleccionActual
+    var funcion = "user"
+    var argumento = document.getElementById("cambiar-in").value
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `funciones.php?funcion=${funcion}&argumento=${argumento}&pwd=${ruta}`, true);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta = this.responseText
+            toggleMostrar("duenno-pop")
         }
     }
 }

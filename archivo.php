@@ -25,6 +25,12 @@
                 <span title="cambiar permisos" class="icono-herramienta" id="cambiar-permisos" onclick="mostrar('permisos-pop')">
                     <img class="icono" src="img/cambiar-permisos.png">
                 </span>
+                <span title="cambiar dueño" class="icono-herramienta" id="cambiar-duenno" onclick="mostrar('duenno-pop')">
+                    <img class="icono" src="img/duenno.png">
+                </span>
+                <span title="info" class="icono-herramienta" id="info" onclick="mostrar('info-pop')">
+                    <img class="icono" src="img/info.png">
+                </span>
                 <span title="mover" class="icono-herramienta" id="mover" onclick="mostrar('mover-pop')">
                     <img class="icono" src="img/mover.png">
                 </span>
@@ -52,6 +58,17 @@
             <input type="text" name="mover-in" id="mover-in" placeholder="Ruta de destino">
             <button class="cancelar" onclick="toggleMostrar('mover-pop')">Cancelar</button>
             <button class="aceptar" onclick="mover()">Aceptar</button>
+        </div>
+        <div class="tarjeta-pop" id="info-pop" style="visibility: hidden">
+            <h1 class="info" id="nombre"></h1>
+            <h1 class="info" id="duenno"></h1>
+            <h1 class="info" id="espacio"></h1>
+            <button class="cancelar" onclick="toggleMostrar('info-pop')">Cerrar</button>
+        </div>
+        <div class="tarjeta-pop" id="duenno-pop" style="visibility: hidden">
+            <input type="text" name="cambiar-in" id="cambiar-in" placeholder="nuevo dueño">
+            <button class="cancelar" onclick="toggleMostrar('duenno-pop')">Cancelar</button>
+            <button class="aceptar" onclick="nuevoDuenno()">Aceptar</button>
         </div>
         <div class="permisos-pop" id="permisos-pop" style="visibility: hidden">
             <h1>Cambiar permisos</h1>
