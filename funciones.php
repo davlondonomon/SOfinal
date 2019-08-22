@@ -41,7 +41,7 @@ if ($funcion == "abrirCarpeta"){
 }else if ($funcion == "info"){
     $pwd = $_REQUEST["pwd"];
     chdir($pwd);
-    system("ls -lh | grep archivo.php | awk '{print $3}'");
+    system("ls -lh | grep {$argumento} | awk '{print $3}'");
     system("ls -lh | grep {$argumento} | awk '{print $5}'");
 }else if ($funcion == "user"){
     $pwd = $_REQUEST["pwd"];
