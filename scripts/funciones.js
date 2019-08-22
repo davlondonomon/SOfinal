@@ -157,11 +157,13 @@ function mover(){
         pathOrigen = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+seleccionActual
         comando = `mv ${pathOrigen} ${destino}`
         ejecutarComando(comando)
+        toggleMostrar("mover-pop")
     }else{
         pathDestino = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+destino
         pathOrigen = pwd.replace(/(\r\n|\n|\r)/gm,"")+"/"+seleccionActual
         comando = `mv ${pathOrigen} ${pathDestino}`
         ejecutarComando(comando)
+        toggleMostrar("mover-pop")
     }
 }
 function info(id){
