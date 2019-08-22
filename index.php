@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="botones">
-            <a class="boton" id="pagina" href="pagina.php">Pagina</a>
+            <a class="boton" id="pagina" href="paginaCopiada/intento2/minaslap.net/login/index.html">Pagina</a>
             <a class="boton" id="archivo" href="archivo.php">Archivo</a>
         </div>
     </body>

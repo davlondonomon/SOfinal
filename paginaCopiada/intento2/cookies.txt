@@ -1,0 +1,4 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+minaslap.net	TRUE	/	FALSE	1999999999	MoodleSession	pf5dt6t17j4hvf97u9613ncop2
+

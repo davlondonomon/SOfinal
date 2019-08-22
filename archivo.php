@@ -7,51 +7,30 @@
     </head>
     <body>
         <div class="explorador">
-            <div class="ventana">
-<?php
-$archivos=shell_exec("ls --group-directories-first");
-$entidades=explode("\n",$archivos);
-for($i=0;$i < count($entidades)-1; ++$i){
-    $comando="[ -f {$entidades[$i]} ] && echo si";
-    $comando=exec($comando);
-    if ( $comando == "si" ){
-        print('
-                     <div class="entidad" id="'.$entidades[$i].'" ondblclick="abrirArchivo(\''.$entidades[$i].'\')">
-                         <img class="icono" src="img/archivo.png" onclick="seleccionar(\''.$entidades[$i].'\');"\>
-                         <p class="leyenda">'.$entidades[$i].'</p>
-                     </div>');
-    }else{
-         print('
-                     <div class="entidad" id="'.$entidades[$i].'" ondblclick="abrirCarpeta(\''.$entidades[$i].'\')">
-                         <img class="icono" src="img/carpeta.png" onclick="seleccionar(\''.$entidades[$i].'\');"\>
-                         <p class="leyenda">'.$entidades[$i].'</p>
-                     </div>');
-    }
-}
-?>
+            <div class="ventana" id="ventana">
             </div>
             <div class="herramientas">
-                <div class="icono-herramienta" id="directorio-anterior" onclick="directorioAnterior()">
+                <span title="directorio anterior" class="icono-herramienta" id="directorio-anterior" onclick="directorioAnterior()">
                     <img class="icono" src="img/directorio-anterior.png">
-                </div>
-                <div class="icono-herramienta" id="nuevo-archivo" onclick="nuevoArchivo()">
+                </span>
+                <span title="nuevo archivo" class="icono-herramienta" id="nuevo-archivo" onclick="toggleMostrar('nuevo-archivo-pop')">
                     <img class="icono" src="img/nuevo-archivo.png">
-                </div>
-                <div class="icono-herramienta" id="nueva-carpeta" onclick="nuevaCarpeta()">
+                </span>
+                <span title="nueva carpeta" class="icono-herramienta" id="nueva-carpeta" onclick="toggleMostrar('nuevo-carpeta-pop')">
                     <img class="icono" src="img/nueva-carpeta.png">
-                </div>
-                <div class="icono-herramienta" id="eliminar" onclick="eliminar()">
+                </span>
+                <span title="eliminar" class="icono-herramienta" id="eliminar" onclick="eliminar()">
                     <img class="icono" src="img/eliminar.png">
-                </div>
-                <div class="icono-herramienta" id="cambiar-permisos" onclick="cambiarPermisos()">
+                </span>
+                <span title="cambiar permisos" class="icono-herramienta" id="cambiar-permisos" onclick="mostrar('permisos-pop')">
                     <img class="icono" src="img/cambiar-permisos.png">
-                </div>
-                <div class="icono-herramienta" id="mover" onclick="mover()">
+                </span>
+                <span title="mover" class="icono-herramienta" id="mover" onclick="mostrar('mover-pop')">
                     <img class="icono" src="img/mover.png">
-                </div>
+                </span>
             </div>
         </div>
-        <div class="visor-texto" id="visor-texto" hidden>
+        <div class="visor-texto" id="visor-texto" style="visibility: hidden">
             <div class="barra-texto">
                 <h1 id="titulo-barra-texto">Titulo provisional</h1>
                 <img class="icono-ventana" src="img/cerrar.png" onclick="toggleMostrar('visor-texto')">
@@ -59,6 +38,75 @@ for($i=0;$i < count($entidades)-1; ++$i){
             <textarea class="caja-texto" id="caja-texto">
             </textarea>
         </div>
+        <div class="tarjeta-pop" id="nuevo-archivo-pop" style="visibility: hidden">
+            <input type="text" name="nombre-archivo-in" id="nombre-archivo-in" placeholder="Ingrese nombre del archivo">
+            <button class="cancelar" onclick="toggleMostrar('nuevo-archivo-pop')">Cancelar</button>
+            <button class="aceptar" onclick="nuevoArchivo()">Aceptar</button>
+        </div>
+        <div class="tarjeta-pop" id="nuevo-carpeta-pop" style="visibility: hidden">
+            <input type="text" name="nombre-carpeta-in" id="nombre-carpeta-in" placeholder="Ingrese nombre de la carpeta">
+            <button class="cancelar" onclick="toggleMostrar('nuevo-carpeta-pop')">Cancelar</button>
+            <button class="aceptar" onclick="nuevaCarpeta()">Aceptar</button>
+        </div>
+        <div class="tarjeta-pop" id="mover-pop" style="visibility: hidden">
+            <input type="text" name="mover-in" id="mover-in" placeholder="Ruta de destino">
+            <button class="cancelar" onclick="toggleMostrar('mover-pop')">Cancelar</button>
+            <button class="aceptar" onclick="mover()">Aceptar</button>
+        </div>
+        <div class="permisos-pop" id="permisos-pop" style="visibility: hidden">
+            <h1>Cambiar permisos</h1>
+            <table>
+              <tr>
+                <th>Tipo permiso</th>
+                <th>Usuario</th>
+                <th>Grupo</th>
+                <th>Global</th>
+              </tr>
+              <tr>
+                <td>Lectura</td>
+                <td>
+                    <input type="checkbox" id="u-r" value="1">
+                </td>
+                <td>
+                    <input type="checkbox" id="g-r" value="1">
+                </td>
+                <td>
+                    <input type="checkbox" id="o-r" value="1">
+                </td>
+              </tr>
+              <tr>
+                <td>Escritura</td>
+                <td>
+                    <input type="checkbox" id="u-w" value="1">
+                </td>                            
+                <td>                             
+                    <input type="checkbox" id="g-w" value="1">
+                </td>                            
+                <td>                             
+                    <input type="checkbox" id="o-w" value="1">
+                </td>
+              </tr>
+              <tr>
+                <td>Ejecución</td>
+                <td>
+                    <input type="checkbox" id="u-x" value="1">
+                </td>                            
+                <td>                             
+                    <input type="checkbox" id="g-x" value="1">
+                </td>                            
+                <td>                             
+                    <input type="checkbox" id="o-x" value="1">
+                </td>
+              </tr>
+            </table>
+            <div class="botones">
+                <button class="cancelar" onclick="toggleMostrar('permisos-pop')">Cancelar</button>
+                <button class="aceptar" onclick="cambiarPermisos()">Aceptar</button>
+            </div>
+        </div>
     </body>
     <script type="text/javascript" src="scripts/funciones.js"></script>
+<script charset="utf-8">
+cambiarPath(".")
+</script>
 </html>
